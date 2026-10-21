@@ -25,7 +25,7 @@ Build the latest package published in Anthropic's APT repository:
 Or build a package already downloaded locally:
 
 ```bash
-./build-fedora.sh --deb ~/Downloads/claude-desktop_1.24012.9_amd64.deb
+./build-fedora.sh --deb ~/Downloads/claude-desktop_3.1623.0_amd64.deb
 ```
 
 The RPM is written to `dist/`. Building does not require root and does not
@@ -54,6 +54,9 @@ sudo dnf remove claude-desktop
 - Declares Fedora packages needed for portals, credential storage, tray
   integration, and the optional Cowork VM.
 - Preserves Chromium's upstream setuid sandbox fallback.
+- Installs the GNOME Shell search provider, the `.mcpb`/`.dxt`/`.skill` MIME
+  types and, when the release ships it, the `ccd` launcher as package-owned
+  files instead of copying them from a post-install script as upstream does.
 - Omits Debian-only APT registration, unattended-upgrades, lintian, and
   AppArmor integration.
 
