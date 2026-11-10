@@ -179,7 +179,9 @@ mkdir -p -- "$output_dir"
 final_path="$output_dir/$(basename -- "$rpm_path")"
 cp -- "$rpm_path" "$final_path"
 
-rpm -K "$final_path"
+# rpm 6 (Fedora 45+) sets %_pkgverify_level to "all", which fails unsigned
+# packages; these RPMs are built locally and unsigned, so check digests only.
+rpm -K --nosignature "$final_path"
 rpm -qpl "$final_path" |
     awk '$0 == "/usr/bin/claude-desktop" { found = 1 }
          END { exit !found }' ||
